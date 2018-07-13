@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import ArtistIndex from './components/Artistindex';
+import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
+import ArtistIndex from './components/ArtistIndex';
 
 class App extends Component {
   render() {

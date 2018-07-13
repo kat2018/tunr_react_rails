@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { axios } from "axios";
+import { Link } from "react-router-dom";
 
 class ArtistIndex extends Component {
     state = {
@@ -12,18 +13,26 @@ class ArtistIndex extends Component {
 
     fetchArtists = () =>{
         axios.get('/api/artists')
-        .then((responde)=>{
-            console.log('ARTIST DATA: ', response.data)
+        .then((response) =>{
+
             this.setState({artist: response.data})
         })
-        .catch((error)=>{
+        .catch((error) =>{
             console.error(error)
         })
     }
     render() {
+
+        const artistsList = this.state.artists.map((artist) => {
+            return (
+                <div key={artist.id}>
+                <Link to={`/artists/${artist.id`}> {artist.name} <Link/>
+                </div>
+            )
+        })
         return (
             <div>
-                Artist Index
+                Artist Index {artistsList}
             </div>
         );
     }
