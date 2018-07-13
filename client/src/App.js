@@ -4,18 +4,22 @@ import ArtistIndex from './components/ArtistIndex';
 import IndividualArtist from './components/IndividualArtist';
 
 class App extends Component {
-  render() {
-    return <Router>
+  render() { 
+
+    return(
+      <Router>
         <div>
           <Link to="/">All Artists</Link>
           <Switch>
-            <Route exact path="/" component={ArtistIndex} />
-            <Route exact path="/artists" component={ArtistIndex} />
-            <Route exact path='/artists/:artistId/songs/:id' component={IndividualArtist} />
-
+            <Route exact path='/' component={ArtistIndex} />
+            <Route exact path='/artists' component={ArtistIndex} />
+            <Route exact path='/artists/:id' component={IndividualArtist} />
           </Switch>
         </div>
-      </Router>;
+      </Router>
+    )
+    
+    
   }
 }
 

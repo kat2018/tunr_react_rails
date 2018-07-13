@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { axios } from "axios";
+import axios  from "axios";
 
 class IndividualArtist extends Component {
     state = {
@@ -8,18 +8,18 @@ class IndividualArtist extends Component {
     }
 
     componentDidMount(){
-        this.fetchArtistAndSong()
+        this.fetchArtistAndSongs()
     }
 
     fetchArtistAndSongs = async () => {
         const artistId = this.props.match.params.id
 
         try{
-            let artist = await axios.get(`/api/artists/${artistId}`)
-            let songs = await axios.get(`/api/artists/${artistId}/songs`)
+            let artistResponse = await axios.get(`/api/artists/${artistId}`)
+            let songsResponse = await axios.get(`/api/artists/${artistId}/songs`)
             this.setState({
-                artist: artist.data,
-                songs: songs.data
+                artist: artistResponse.data,
+                songs: songsResponse.data
             })
         } catch (error) {
             console.log(error)
@@ -35,13 +35,15 @@ class IndividualArtist extends Component {
                 </div>
             )
         })
-        return <div>
-            <h1> {this.state.artist.name} </h1>
-            <h4> {this.state.artist.nationality} </h4>
-            <img width={200} src="{this.state.artist.photo_url}" alt="{this.state.artist.name}" />
-            {songsList}
-          </div>;
+        return (
+            <div>
+                <h1> {this.state.artist.name} </h1>
+                <h4> {this.state.artist.nationality} </h4>
+                <img width={200} src={this.state.artist.photo_url} alt={this.state.artist.name} />
+                {songsList}
+            </div>
+        )
     }
 }
 
-export default IndividualArtist;
+export default IndividualArtist

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { axios } from "axios";
+import axios  from "axios";
 import { Link } from "react-router-dom";
 
 class ArtistIndex extends Component {
@@ -7,29 +7,26 @@ class ArtistIndex extends Component {
         artists: []
     }
     
-    componentDidMount(){
+    componentDidMount() {
         this.fetchArtists()
     }
 
-    fetchArtists = () =>{
+    fetchArtists = () => {
         axios.get('/api/artists')
-        .then((response) =>{
-
-            this.setState({artist: response.data})
+        .then((res) => {
+            this.setState({
+                artists: res.data
+            })
         })
-        .catch((error) =>{
+        .catch((error) => {
             console.error(error)
         })
     }
     render() {
-
         const artistsList = this.state.artists.map((artist) => {
             return (
                 <div key={artist.id}>
-                    {/* <Link ></Link> */}
-                    {/* <Link to={`/artists/${artist.id}`}> {artist.name} <Link /> */}
-
-
+                    <Link to={`/artists/${artist.id}`} > {artist.name}</Link>
                 </div>
             )
         })
@@ -37,7 +34,7 @@ class ArtistIndex extends Component {
             <div>
                 Artist Index {artistsList}
             </div>
-        );
+        )
     }
 }
 
