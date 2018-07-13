@@ -1,6 +1,6 @@
 class Api::SongsController < ApplicationController
   def index
-    @songs = Songs.all
+    @songs = Artist.find(params[:artist_id]).songs
     render json: @songs
   end
 
@@ -10,7 +10,9 @@ class Api::SongsController < ApplicationController
   end
 
   def create
-     @song = Song.create(songs_params)
+    @artist = Artist.find(params[:artist_id]) 
+    @song = @artist.songs.create(song_params)
+    # puts params 
     render json: @song
   end
 
@@ -20,19 +22,17 @@ class Api::SongsController < ApplicationController
     render json: @song
   end
 
-  def delete
+  def destroy
+    @song = Song.find(params[:id]).destroy
+    render status: :ok
+  end
+
+  private 
+  def song_params
+  params.require(:song).permit(:title, :album, :preview_url)
   end
 end
 
 
 
-  # def destroy
-  #   @artist = Artist.find(params[:id]).destroy
-  #   render status: :ok
-  # end
-
-  # private 
-
-  # def artist_params
-  # params.require(:artist).permit(:name, :nationality, :photo_url)
-  # end
+  
