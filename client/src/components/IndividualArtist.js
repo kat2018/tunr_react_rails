@@ -11,20 +11,36 @@ class IndividualArtist extends Component {
         this.fetchArtistAndSong()
     }
 
-    fetchArtistAndSongs = () => {
-        console.log(this.props.match.params.id)
-        axios.get(`/api/artists/${artistId}`)
-        .then(response => {
-            console.log(response.data)
-        })
+    fetchArtistAndSongs = async () => {
+        const artistId = this.props.match.params.id
+
+        try{
+            let artist = await axios.get(`/api/artists/${artistId}`)
+            let songs = await axios.get(`/api/artists/${artistId}/songs`)
+            this.setState({
+                artist: artist.data,
+                songs: songs.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
-        return (
-            <div>
-                IndividualArtist
-            </div>
-        );
+        const songsList = this.state.songs.map((song) => {
+            return (
+                <div>
+                    <h4> {song.title}</h4>
+                    <audio controls src={song.preview_url}/>
+                </div>
+            )
+        })
+        return <div>
+            <h1> {this.state.artist.name} </h1>
+            <h4> {this.state.artist.nationality} </h4>
+            <img width={200} src="{this.state.artist.photo_url}" alt="{this.state.artist.name}" />
+            {songsList}
+          </div>;
     }
 }
 
