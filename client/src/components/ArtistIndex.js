@@ -25,8 +25,8 @@ class ArtistIndex extends Component {
 
         const artistsList = this.state.artists.map((artist) => {
             return (
-                <div key={artist.id}>
-                <Link to={`/artists/${artist.id`}> {artist.name} <Link/>
+                <div key={artist.id} >
+                <Link to={`/artists/${artist.id}`}> {artist.name} <Link/>
                 </div>
             )
         })
